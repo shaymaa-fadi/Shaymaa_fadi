@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>دعوة زفاف - فادي وشيماء</title>
+<script src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js" crossorigin="anonymous"></script>
+<style>
+@font-face {
+  font-family:'Thmanyah';
+  src:url('thmanyah-black.woff2') format('woff2');
+  font-weight:900; font-style:normal;
+}
+@font-face {
+  font-family:'Thmanyah';
+  src:url('thmanyah-bold.woff2') format('woff2');
+  font-weight:700; font-style:normal;
+}
+@font-face {
+  font-family:'ThmanyahSans';
+  src:url('thmanyah-sans-bold.woff2') format('woff2');
+  font-weight:700; font-style:normal;
+}
+@font-face {
+  font-family:'ThmanyahSans';
+  src:url('thmanyah-sans-medium.woff2') format('woff2');
+  font-weight:500; font-style:normal;
+}
+@font-face {
+  font-family:'ThmanyahSans';
+  src:url('thmanyah-sans-regular.woff2') format('woff2');
+  font-weight:400; font-style:normal;
+}
+@font-face {
+  font-family:'ThmanyahSans';
+  src:url('thmanyah-sans-light.woff2') format('woff2');
+  font-weight:300; font-style:normal;
+}
+
+- { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  :root {
+  –font-h:‘Thmanyah’,serif;
+  –font:‘ThmanyahSans’,sans-serif;
+  –gold:#c9a84c;
+  –gold2:#e2c06a;
+  –gold3:#a07830;
+  –gold-grad:linear-gradient(135deg,#e8d08a 0%,#c9a84c 40%,#a07830 70%,#c9a84c 100%);
+  –text-gold:transparent;
+  }
+
+html { scroll-behavior:smooth; }
+body { font-family:var(–font); background:#1a1a1a; min-height:100vh; overflow-x:hidden; }
+img.emoji { height:1.15em; width:1.15em; margin:0 .04em 0 .08em; vertical-align:-0.1em; }
+
+/* Gold text utility */
+.gold {
+background:var(–gold-grad);
+-webkit-background-clip:text; background-clip:text;
+-webkit-text-fill-color:transparent; color:transparent;
+}
+.gold-solid { color:var(–gold); }
+
+/* ══════════════════════════════════
+ENVELOPE SCREEN
+══════════════════════════════════ */
+#envelope-screen {
+position:fixed; inset:0;
+background-image:url(‘bg.jpg’);
+background-size:cover; background-position:center top;
+display:flex; align-items:center; justify-content:flex-start;
+flex-direction:column; padding-top:60px;
+z-index:1000;
+transition:opacity .9s cubic-bezier(.4,0,.2,1), transform .9s cubic-bezier(.4,0,.2,1);
+}
+#envelope-screen.hiding { opacity:0; transform:scale(1.06); pointer-events:none; }
+
+.seal {
+width:200px; height:200px;
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(16px) saturate(140%);
+-webkit-backdrop-filter:blur(16px) saturate(140%);
+border-radius:50%;
+display:flex; flex-direction:column; align-items:center; justify-content:center;
+box-shadow:0 8px 40px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.3);
+cursor:pointer; position:relative;
+animation:float 3.2s ease-in-out infinite;
+border:1px solid rgba(201,168,76,.5);
+}
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+
+.seal-r1 { position:absolute; inset:8px; border-radius:50%; border:1px solid rgba(201,168,76,.4); }
+.seal-r2 { position:absolute; inset:15px; border-radius:50%; border:.5px dashed rgba(201,168,76,.25); }
+.seal-leaf { position:absolute; border-radius:50%; }
+
+.seal-names {
+font-family:var(–font-h); font-weight:900;
+font-size:22px; line-height:1.35; text-align:center; z-index:1;
+background:var(–gold-grad);
+-webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+}
+.seal-amp { font-size:13px; color:rgba(201,168,76,.7); display:block; margin:2px 0; -webkit-text-fill-color:rgba(201,168,76,.7); }
+.seal-open {
+font-size:9px; letter-spacing:5px; margin-top:9px; display:block;
+color:rgba(201,168,76,.6); -webkit-text-fill-color:rgba(201,168,76,.6);
+}
+
+/* ══════════════════════════════════
+INVITATION WRAPPER
+══════════════════════════════════ */
+#invitation { display:none; min-height:100vh; }
+#invitation.visible { display:block; }
+
+/* ══════════════════════════════════
+HERO - uses same background image
+══════════════════════════════════ */
+.hero {
+position:relative; min-height:100vh;
+background-image:url(‘bg.jpg’);
+background-size:cover; background-position:center top;
+display:flex; flex-direction:column; align-items:flex-start;
+justify-content:flex-start; padding:55px 28px 0;
+overflow:hidden;
+}
+
+/* Subtle overlay for readability */
+.hero-overlay {
+position:absolute; inset:0;
+background:linear-gradient(180deg,rgba(255,255,255,0.05) 0%,rgba(255,255,255,0.0) 60%,rgba(240,235,228,0.3) 100%);
+pointer-events:none;
+}
+
+.hero-tag {
+font-family:var(–font-h); font-size:16px; font-weight:700;
+letter-spacing:5px; margin-bottom:18px;
+opacity:0; animation:fadeUp .8s ease .3s forwards;
+background:var(–gold-grad); -webkit-background-clip:text;
+background-clip:text; -webkit-text-fill-color:transparent;
+z-index:1; text-shadow:0 0 30px rgba(201,168,76,.3);
+}
+
+.hero-name {
+z-index:1; opacity:0; animation:fadeUp .8s ease .5s forwards; line-height:1;
+}
+.hero-name .n {
+display:block; font-family:var(–font-h); font-weight:900;
+font-size:clamp(68px,22vw,115px);
+background:var(–gold-grad);
+-webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+line-height:1.2;
+padding-bottom:14px;
+margin-bottom:-6px;
+overflow:visible;
+}
+.hero-name .amp {
+display:block; font-size:26px; margin:5px 0; font-weight:300;
+color:rgba(160,120,48,.8); -webkit-text-fill-color:rgba(160,120,48,.8);
+}
+
+.hero-date {
+margin-top:18px; font-size:16px; font-weight:700; letter-spacing:1.5px;
+opacity:0; animation:fadeUp .8s ease .7s forwards; z-index:1;
+font-family:var(–font-h);
+background:var(–gold-grad); -webkit-background-clip:text;
+background-clip:text; -webkit-text-fill-color:transparent;
+}
+
+/* ══════════════════════════════════
+SCROLL ARROW
+══════════════════════════════════ */
+.scroll-arrow {
+position:fixed; bottom:92px; left:50%; transform:translateX(-50%);
+font-size:26px; pointer-events:none; z-index:50;
+opacity:0; transition:opacity .4s;
+animation:bounce 2s ease-in-out infinite;
+color:rgba(201,168,76,.6);
+}
+@keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+
+/* ══════════════════════════════════
+CONTENT AREA
+══════════════════════════════════ */
+.content {
+padding:0 0 140px;
+background:linear-gradient(180deg,#f0ece5 0%,#e8e3db 50%,#ede8e0 100%);
+}
+
+/* Reveal */
+.reveal {
+opacity:0; transform:translateY(30px);
+transition:opacity .7s cubic-bezier(.4,0,.2,1), transform .7s cubic-bezier(.4,0,.2,1);
+}
+.reveal.in { opacity:1; transform:translateY(0); }
+
+.sec { padding:36px 18px; }
+
+/* Glass card */
+.glass {
+background:rgba(255,255,255,.58);
+backdrop-filter:blur(20px) saturate(160%);
+-webkit-backdrop-filter:blur(20px) saturate(160%);
+border:1px solid rgba(255,255,255,.75);
+border-radius:24px;
+box-shadow:0 4px 32px rgba(0,0,0,.07), inset 0 1px 0 rgba(255,255,255,.85);
+padding:28px 22px;
+}
+
+/* Section label */
+.sec-label {
+text-align:center; font-size:11px; letter-spacing:3px; font-weight:300;
+margin-bottom:8px; color:var(–gold3);
+}
+
+/* Verse */
+.verse-text {
+font-family:var(–font-h); font-size:22px; font-weight:700;
+line-height:2; margin-bottom:16px; text-align:center;
+background:var(–gold-grad); -webkit-background-clip:text;
+background-clip:text; -webkit-text-fill-color:transparent;
+}
+.hdivider {
+width:60px; height:1px; margin:0 auto 16px;
+background:linear-gradient(90deg,transparent,var(–gold),transparent);
+}
+.inv-text {
+font-size:15px; color:#555; line-height:2.3; font-weight:300; text-align:center;
+}
+.couple-nm {
+font-family:var(–font-h); font-size:24px; font-weight:900;
+margin-top:14px; text-align:center;
+background:var(–gold-grad); -webkit-background-clip:text;
+background-clip:text; -webkit-text-fill-color:transparent;
+}
+
+/* Location */
+.venue-nm {
+text-align:center; font-size:21px; font-weight:700; margin-bottom:5px;
+font-family:var(–font-h);
+background:var(–gold-grad); -webkit-background-clip:text;
+background-clip:text; -webkit-text-fill-color:transparent;
+}
+.venue-addr { text-align:center; font-size:13px; color:#888; line-height:1.8; }
+
+/* Calendar */
+.cal-card {
+background:#fff; border-radius:22px; overflow:hidden;
+box-shadow:0 8px 34px rgba(0,0,0,.1); max-width:270px; margin:22px auto;
+}
+.cal-head {
+padding:13px 20px; display:flex; justify-content:space-between; align-items:center;
+background:linear-gradient(135deg,#1a1a1a 0%,#2a2218 100%);
+border-bottom:1px solid rgba(201,168,76,.3);
+}
+.cal-month {
+font-size:19px; font-family:var(–font-h); font-weight:700;
+background:var(–gold-grad); -webkit-background-clip:text;
+background-clip:text; -webkit-text-fill-color:transparent;
+}
+.cal-year { color:#777; font-size:16px; }
+.cal-body { padding:18px 20px 22px; text-align:center; }
+.cal-num {
+font-size:84px; font-weight:900; line-height:1;
+font-family:var(–font-h);
+background:var(–gold-grad); -webkit-background-clip:text;
+background-clip:text; -webkit-text-fill-color:transparent;
+}
+.cal-sep { height:1px; background:linear-gradient(90deg,transparent,#e8d8b0,transparent); margin:12px 0; }
+.cal-day { font-size:12px; color:#b0a090; font-weight:300; margin-bottom:4px; }
+.cal-time {
+font-size:20px; font-weight:700; font-family:var(–font-h);
+background:var(–gold-grad); -webkit-background-clip:text;
+background-clip:text; -webkit-text-fill-color:transparent;
+}
+
+.save-btn {
+display:flex; align-items:center; justify-content:center; gap:8px;
+background:rgba(255,255,255,.8); border:1px solid rgba(201,168,76,.35);
+border-radius:50px; padding:13px 30px; margin:0 auto; width:fit-content;
+cursor:pointer; font-size:15px; font-family:var(–font); font-weight:500;
+color:var(–gold3); text-decoration:none;
+box-shadow:0 2px 16px rgba(201,168,76,.15); transition:all .2s;
+}
+.save-btn:hover { background:#fff; box-shadow:0 4px 24px rgba(201,168,76,.25); }
+
+/* Countdown */
+.cd-wrap { text-align:center; }
+.cd-label { font-size:11px; color:var(–gold3); margin-bottom:14px; font-weight:300; letter-spacing:2px; }
+.cd-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:9px; max-width:340px; margin:0 auto; }
+.cd-item {
+background:rgba(255,255,255,.58); backdrop-filter:blur(12px);
+-webkit-backdrop-filter:blur(12px);
+border:1px solid rgba(201,168,76,.2);
+border-radius:17px; padding:15px 6px;
+box-shadow:0 2px 12px rgba(0,0,0,.05);
+}
+.cd-num {
+font-size:31px; font-weight:900; display:block; font-family:var(–font-h);
+background:var(–gold-grad); -webkit-background-clip:text;
+background-clip:text; -webkit-text-fill-color:transparent;
+}
+.cd-unit { font-size:10px; color:#b0a090; font-weight:300; margin-top:2px; display:block; letter-spacing:1px; }
+
+/* ══ VERTICAL TIMELINE ══ */
+.prog-wrap {
+padding:28px 22px;
+background:rgba(255,255,255,.52);
+backdrop-filter:blur(22px) saturate(160%);
+-webkit-backdrop-filter:blur(22px) saturate(160%);
+border:1px solid rgba(255,255,255,.75);
+border-radius:26px;
+box-shadow:0 4px 32px rgba(0,0,0,.07), inset 0 1px 0 rgba(255,255,255,.9);
+}
+.prog-title {
+font-size:20px; font-weight:700; text-align:center; margin-bottom:30px;
+font-family:var(–font-h);
+background:var(–gold-grad); -webkit-background-clip:text;
+background-clip:text; -webkit-text-fill-color:transparent;
+}
+
+.vtl { position:relative; display:flex; flex-direction:column; align-items:center; }
+.vtl::before {
+content:’’; position:absolute; top:0; bottom:0;
+left:50%; transform:translateX(-50%);
+width:1.5px;
+background:linear-gradient(180deg,var(–gold) 0%,rgba(201,168,76,.1) 100%);
+}
+
+.vtl-row {
+display:grid; grid-template-columns:1fr 28px 1fr;
+align-items:center; width:100%; padding:18px 0;
+opacity:0; transition:opacity .6s cubic-bezier(.4,0,.2,1), transform .6s cubic-bezier(.4,0,.2,1);
+}
+.vtl-row.from-right { transform:translateX(26px); }
+.vtl-row.from-left  { transform:translateX(-26px); }
+.vtl-row.in { opacity:1; transform:translateX(0); }
+
+.vtl-dot {
+width:14px; height:14px; border-radius:50%; justify-self:center; z-index:2; flex-shrink:0;
+background:linear-gradient(135deg,#e8d08a,#c9a84c);
+box-shadow:0 0 0 5px rgba(201,168,76,.15), 0 0 0 9px rgba(201,168,76,.06);
+}
+
+.vtl-time {
+font-size:15px; font-weight:700; text-align:left; padding-left:14px;
+font-family:var(–font-h);
+background:var(–gold-grad); -webkit-background-clip:text;
+background-clip:text; -webkit-text-fill-color:transparent;
+line-height:1.3;
+}
+.vtl-event { font-size:14px; color:#777; font-weight:300; text-align:right; padding-right:14px; line-height:1.5; }
+
+.vtl-row.alt .vtl-time  { order:3; text-align:right; padding-right:14px; padding-left:0; }
+.vtl-row.alt .vtl-dot   { order:2; }
+.vtl-row.alt .vtl-event { order:1; text-align:left; padding-left:14px; padding-right:0; }
+
+/* Details */
+.det-title {
+font-size:20px; font-weight:700; text-align:center; margin-bottom:14px;
+font-family:var(–font-h);
+background:var(–gold-grad); -webkit-background-clip:text;
+background-clip:text; -webkit-text-fill-color:transparent;
+}
+.det-item {
+background:rgba(255,255,255,.52);
+backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+border:1px solid rgba(201,168,76,.18);
+border-radius:16px; padding:15px 18px; margin-bottom:10px;
+display:flex; align-items:center; justify-content:space-between;
+box-shadow:0 2px 10px rgba(0,0,0,.04);
+}
+.det-text { font-size:15px; color:#555; font-weight:400; }
+
+/* Closing */
+.closing { text-align:center; }
+.msg-bubble {
+background:rgba(255,255,255,.65); backdrop-filter:blur(12px);
+-webkit-backdrop-filter:blur(12px);
+border:1px solid rgba(201,168,76,.18);
+border-radius:15px; padding:14px 18px; margin:8px 0;
+font-size:15px; color:#555;
+box-shadow:0 2px 10px rgba(0,0,0,.04);
+}
+
+/* Footer */
+.footer { text-align:center; padding:28px 20px 18px; border-top:1px solid rgba(201,168,76,.2); }
+.footer-couple {
+font-size:26px; font-weight:900; margin-bottom:4px; font-family:var(–font-h);
+background:var(–gold-grad); -webkit-background-clip:text;
+background-clip:text; -webkit-text-fill-color:transparent;
+}
+.footer-date { font-size:13px; color:#b0a090; margin-bottom:10px; }
+.footer-brand { font-size:11px; color:#d0c8b8; }
+
+/* ══════════════════════════════════
+BOTTOM NAV
+══════════════════════════════════ */
+.bnav {
+position:fixed; bottom:0; left:0; right:0;
+background:rgba(247,242,235,.96); backdrop-filter:blur(26px);
+-webkit-backdrop-filter:blur(26px);
+border-top:1px solid rgba(201,168,76,.2); padding:10px 0 22px;
+display:flex; justify-content:space-around; align-items:center;
+z-index:100; box-shadow:0 -4px 32px rgba(0,0,0,.07);
+}
+.nav-item {
+display:flex; flex-direction:column; align-items:center; gap:3px;
+text-decoration:none; cursor:pointer; flex:1; transition:opacity .2s;
+}
+.nav-item:hover { opacity:.7; }
+.nav-svg { width:22px; height:22px; fill:none; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; stroke:var(–gold3); }
+.nav-lbl { font-size:10px; font-family:var(–font); color:var(–gold3); }
+.nav-gold {
+width:52px; height:52px;
+background:linear-gradient(135deg,#e8d08a,#c9a84c,#a07830);
+border-radius:50%; display:flex; align-items:center; justify-content:center;
+box-shadow:0 4px 20px rgba(201,168,76,.4); cursor:pointer;
+margin-top:-15px; flex-shrink:0;
+}
+
+/* ══════════════════════════════════
+MUSIC BAR
+══════════════════════════════════ */
+.mbar {
+position:fixed; top:0; left:0; right:0;
+background:rgba(18,14,8,.94); backdrop-filter:blur(20px);
+border-bottom:1px solid rgba(201,168,76,.25);
+color:#fff; padding:10px 16px;
+display:flex; align-items:center; justify-content:space-between;
+z-index:200; transform:translateY(-100%); transition:transform .5s cubic-bezier(.4,0,.2,1);
+}
+.mbar.on { transform:translateY(0); }
+.mdisc {
+width:33px; height:33px;
+background:linear-gradient(135deg,#e8d08a,#c9a84c);
+border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;
+animation:spin 4s linear infinite; animation-play-state:paused;
+}
+.mdisc.spin { animation-play-state:running; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.mtitle { font-size:13px; font-weight:700; color:var(–gold2); }
+.martist { font-size:11px; color:#888; font-weight:300; margin-top:1px; }
+.mcontrols { display:flex; gap:8px; align-items:center; }
+.mplay { background:rgba(201,168,76,.15); border:1px solid rgba(201,168,76,.3); color:var(–gold2); font-size:14px; cursor:pointer; padding:5px 11px; border-radius:20px; }
+.myt   { color:#ff5555; text-decoration:none; font-size:11px; font-weight:600; border:1px solid rgba(255,85,85,.4); padding:5px 11px; border-radius:20px; }
+.mclose { background:none; border:none; color:#666; font-size:15px; cursor:pointer; padding:4px 6px; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+</style>
+
+</head>
+<body>
+
+<!-- ══════ MUSIC BAR ══════ -->
+
+<div class="mbar" id="mbar">
+  <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;">
+    <div class="mdisc" id="mdisc">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="white">
+        <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+      </svg>
+    </div>
+    <div style="min-width:0;">
+      <div class="mtitle">ادخلي عمري بخطوتك اليمين</div>
+      <div class="martist">حسين الجسمي</div>
+    </div>
+  </div>
+  <div class="mcontrols">
+    <button class="mplay" id="mplaybtn" onclick="togglePlay()">⏸</button>
+    <a class="myt" href="https://youtu.be/Hp8WTVqR_0U" target="_blank">يوتيوب</a>
+    <button class="mclose" onclick="closeMbar()">✕</button>
+  </div>
+</div>
+
+<!-- ══════ ENVELOPE ══════ -->
+
+<div id="envelope-screen" onclick="openInvitation()">
+  <div class="seal">
+    <div class="seal-r1"></div>
+    <div class="seal-r2"></div>
+    <div class="seal-leaf" style="width:5px;height:9px;top:10px;left:50%;transform:translateX(-50%);background:rgba(201,168,76,.35);"></div>
+    <div class="seal-leaf" style="width:5px;height:9px;bottom:10px;left:50%;transform:translateX(-50%);background:rgba(201,168,76,.35);"></div>
+    <div class="seal-leaf" style="width:9px;height:5px;top:50%;right:10px;transform:translateY(-50%);background:rgba(201,168,76,.35);"></div>
+    <div class="seal-leaf" style="width:9px;height:5px;top:50%;left:10px;transform:translateY(-50%);background:rgba(201,168,76,.35);"></div>
+    <div class="seal-leaf" style="width:5px;height:8px;top:19px;right:19px;transform:rotate(45deg);background:rgba(201,168,76,.25);"></div>
+    <div class="seal-leaf" style="width:5px;height:8px;top:19px;left:19px;transform:rotate(-45deg);background:rgba(201,168,76,.25);"></div>
+    <div class="seal-leaf" style="width:5px;height:8px;bottom:19px;right:19px;transform:rotate(-45deg);background:rgba(201,168,76,.25);"></div>
+    <div class="seal-leaf" style="width:5px;height:8px;bottom:19px;left:19px;transform:rotate(45deg);background:rgba(201,168,76,.25);"></div>
+    <div class="seal-text" style="text-align:center;z-index:1;">
+      <div class="seal-names">فادي<span class="seal-amp">&</span>شيماء</div>
+      <div class="seal-open">OPEN</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ INVITATION ══════ -->
+
+<div id="invitation">
+
+  <!-- HERO -->
+
+  <div class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-tag">حفل زفاف</div>
+    <div class="hero-name">
+      <span class="n" style="padding-bottom:18px;display:block;overflow:visible;">فادي</span>
+      <span class="amp">&</span>
+      <span class="n">شيماء</span>
+    </div>
+    <div class="hero-date">السبت ، ٢٢ أغسطس ، ٢٠٢٦ ، ٥:٠٠ م</div>
+  </div>
+
+  <div class="scroll-arrow" id="sarrow">⌄</div>
+
+  <!-- CONTENT -->
+
+  <div class="content">
+
+```
+<!-- VERSE -->
+<div class="sec reveal" id="s1">
+  <div class="glass">
+    <div class="verse-text">بَارَكَ اللَّهُ لَكَ، وَبَارَكَ عَلَيْكَ، وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ</div>
+    <div class="hdivider"></div>
+    <div class="inv-text">
+      أهلنا وأصدقاؤنا الأعزاء<br><br>
+      بكل حب وسعادة نشارككم فرحتنا<br>
+      ونتطلع لحضوركم في هذا اليوم المميز
+    </div>
+    <div class="couple-nm">فادي &amp; شيماء</div>
+  </div>
+</div>
+
+<!-- LOCATION -->
+<div class="sec reveal" id="s2" style="text-align:center;">
+  <div class="sec-label">الموقع</div>
+  <div class="venue-nm">Feestzaal The View</div>
+  <div class="venue-addr">Grote Markt 25, 9100 Sint-Niklaas</div>
+</div>
+
+<!-- CALENDAR -->
+<div class="sec reveal" id="s3">
+  <div class="cal-card">
+    <div class="cal-head">
+      <div class="cal-month">أغسطس</div>
+      <div class="cal-year">2026</div>
+    </div>
+    <div class="cal-body">
+      <div class="cal-num">22</div>
+      <div class="cal-sep"></div>
+      <div class="cal-day">السبت</div>
+      <div class="cal-time">5:00 PM</div>
+    </div>
+  </div>
+  <a class="save-btn" href="#" onclick="saveToCalendar();return false;">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--gold3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/>
+      <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+    </svg>
+    احفظ الموعد
+  </a>
+</div>
+
+<!-- COUNTDOWN -->
+<div class="sec reveal cd-wrap" id="s4">
+  <div class="cd-label">العد التنازلي</div>
+  <div class="cd-grid">
+    <div class="cd-item"><span class="cd-num" id="cdd">--</span><span class="cd-unit">أيام</span></div>
+    <div class="cd-item"><span class="cd-num" id="cdh">--</span><span class="cd-unit">ساعات</span></div>
+    <div class="cd-item"><span class="cd-num" id="cdm">--</span><span class="cd-unit">دقائق</span></div>
+    <div class="cd-item"><span class="cd-num" id="cds">--</span><span class="cd-unit">ثواني</span></div>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<div class="sec reveal" id="s5">
+  <div class="prog-wrap">
+    <div class="prog-title">برنامج الحفل</div>
+    <div class="vtl">
+      <div class="vtl-row" id="tl1">
+        <div class="vtl-time">5:00 PM</div>
+        <div class="vtl-dot"></div>
+        <div class="vtl-event">استقبال الضيوف</div>
+      </div>
+      <div class="vtl-row" id="tl2">
+        <div class="vtl-time">6:00 PM</div>
+        <div class="vtl-dot"></div>
+        <div class="vtl-event">زفة العروس</div>
+      </div>
+      <div class="vtl-row" id="tl3">
+        <div class="vtl-time">10:00 PM</div>
+        <div class="vtl-dot"></div>
+        <div class="vtl-event">انتهاء الحفل</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DETAILS -->
+<div class="sec reveal" id="s6">
+  <div class="det-title">تفاصيل الحفل</div>
+  <div class="det-item">
+    <div class="det-text">ممنوع التصوير</div>
+    <span>🚫📷</span>
+  </div>
+  <div class="det-item">
+    <div class="det-text">ممنوع حضور الأطفال</div>
+    <span>🚫👶</span>
+  </div>
+  <div class="det-item">
+    <div class="det-text">يرجى تأكيد الحضور</div>
+    <span>✅</span>
+  </div>
+</div>
+
+<!-- CLOSING -->
+<div class="sec reveal closing" id="s7">
+  <div style="font-size:16px;font-weight:700;font-family:var(--font-h);margin-bottom:8px;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">أهلنا وأصدقاؤنا الأعزاء</div>
+  <div style="font-size:14px;color:#888;line-height:2.2;font-weight:300;margin-bottom:12px;">
+    بكل حب وسعادة نشارككم فرحتنا<br>
+    ونتطلع لحضوركم في هذا اليوم المميز
+  </div>
+  <div style="font-size:15px;font-weight:500;color:var(--gold3);">بمحبة، فادي وشيماء</div>
+  <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.3),transparent);margin:22px 0;"></div>
+  <div style="display:flex;align-items:center;justify-content:center;gap:6px;color:#b0a090;font-size:13px;margin-bottom:10px;font-weight:300;">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#b0a090" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    التهاني
+  </div>
+  <div class="msg-bubble">ألف مبروك يا عروسة 🎉</div>
+  <div class="msg-bubble">Congrats 🥳</div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer" id="s8">
+  <div class="footer-couple">فادي &amp; شيماء</div>
+  <div class="footer-date">22/08/2026</div>
+  <div style="font-size:19px;margin-bottom:6px;color:var(--gold);">♡</div>
+  <div class="footer-brand">Made with ♡</div>
+</div>
+```
+
+  </div>
+
+  <!-- BOTTOM NAV -->
+
+  <div class="bnav">
+    <a class="nav-item" href="https://wa.me/32466155805?text=%D8%A3%D9%88%D8%AF%20%D8%AA%D8%A3%D9%83%D9%8A%D8%AF%20%D8%AD%D8%B6%D9%88%D8%B1%D9%8A%20%D9%81%D9%8A%20%D8%AD%D9%81%D9%84%20%D8%B2%D9%81%D8%A7%D9%81%20%D9%81%D8%A7%D8%AF%D9%8A%20%D9%88%D8%B4%D9%8A%D9%85%D8%A7%D8%A1" target="_blank">
+      <svg class="nav-svg" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      <div class="nav-lbl">تأكيد الحضور</div>
+    </a>
+    <a class="nav-item" href="https://maps.google.com/?q=Feestzaal+The+View,+Grote+Markt+25,+9100+Sint-Niklaas" target="_blank">
+      <svg class="nav-svg" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <div class="nav-lbl">الموقع</div>
+    </a>
+    <div class="nav-gold" onclick="toggleMbar()">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+      </svg>
+    </div>
+    <div class="nav-item" onclick="toggleMbar()">
+      <svg class="nav-svg" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      <div class="nav-lbl">موسيقى</div>
+    </div>
+    <a class="nav-item" href="https://wa.me/32466155805" target="_blank">
+      <svg class="nav-svg" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.37a16 16 0 0 0 6 6l1.27-.93a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <div class="nav-lbl">تواصل</div>
+    </a>
+  </div>
+
+</div>
+
+<div id="ytWrap" style="position:fixed;bottom:-300px;left:-300px;width:1px;height:1px;overflow:hidden;pointer-events:none;opacity:0;"></div>
+
+<script>
+var ytp=null,musicReady=false,musicOn=false;
+(function(){ var s=document.createElement('script'); s.src='https://www.youtube.com/iframe_api'; document.head.appendChild(s); })();
+function onYouTubeIframeAPIReady(){
+  var w=document.getElementById('ytWrap'); var d=document.createElement('div'); d.id='ytf'; w.appendChild(d);
+  ytp=new YT.Player('ytf',{ videoId:'Hp8WTVqR_0U', playerVars:{autoplay:0,controls:0,loop:1,playlist:'Hp8WTVqR_0U',playsinline:1},
+    events:{ onReady:function(){musicReady=true;},
+      onStateChange:function(e){
+        var p=e.data===YT.PlayerState.PLAYING; musicOn=p;
+        document.getElementById('mdisc').classList.toggle('spin',p);
+        document.getElementById('mplaybtn').textContent=p?'⏸':'▶';
+      }
+    }
+  });
+}
+function tryStartMusic(n){
+  n=n||0;
+  if(musicReady&&ytp){ ytp.setVolume(75); ytp.playVideo(); setTimeout(function(){document.getElementById('mbar').classList.add('on');},400); }
+  else if(n<25){ setTimeout(function(){tryStartMusic(n+1);},500); }
+}
+function togglePlay(){ if(!ytp)return; musicOn?ytp.pauseVideo():ytp.playVideo(); }
+function toggleMbar(){ document.getElementById('mbar').classList.toggle('on'); if(!musicOn&&musicReady&&ytp)ytp.playVideo(); }
+function closeMbar(){ document.getElementById('mbar').classList.remove('on'); if(ytp&&musicOn)ytp.pauseVideo(); }
+
+function openInvitation(){
+  var env=document.getElementById('envelope-screen');
+  var inv=document.getElementById('invitation');
+  // Try to start music immediately on user gesture (best chance for autoplay)
+  if(musicReady&&ytp){ ytp.setVolume(75); ytp.playVideo(); }
+  env.classList.add('hiding');
+  setTimeout(function(){
+    env.style.display='none'; inv.classList.add('visible');
+    startCountdown(); initReveal(); initTimeline();
+    setTimeout(function(){document.getElementById('sarrow').style.opacity='1';},1100);
+    twemoji.parse(document.body,{folder:'svg',ext:'.svg',base:'https://cdn.jsdelivr.net/npm/twemoji@14.0.2/assets/'});
+    // Show music bar and ensure playing
+    setTimeout(function(){
+      document.getElementById('mbar').classList.add('on');
+      tryStartMusic();
+    },300);
+  },880);
+}
+
+window.addEventListener('scroll',function(){
+  var a=document.getElementById('sarrow');
+  if(a) a.style.opacity=window.scrollY>80?'0':'1';
+});
+
+function initReveal(){
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('in'); });
+  },{threshold:0.13});
+  document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+}
+
+function initTimeline(){
+  var rows=document.querySelectorAll('.vtl-row');
+  rows.forEach(function(r,i){ r.classList.add(i%2===0?'from-right':'from-left'); });
+  var obs2=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        var idx=Array.from(rows).indexOf(e.target);
+        setTimeout(function(){e.target.classList.add('in');},idx*200);
+      }
+    });
+  },{threshold:0.2});
+  rows.forEach(function(r){obs2.observe(r);});
+}
+
+function startCountdown(){
+  var target=new Date('2026-08-22T17:00:00');
+  function tick(){
+    var diff=target-new Date(); if(diff<0)diff=0;
+    var d=Math.floor(diff/86400000), h=Math.floor((diff%86400000)/3600000),
+        m=Math.floor((diff%3600000)/60000), s=Math.floor((diff%60000)/1000);
+    document.getElementById('cdd').textContent=String(d).padStart(2,'0');
+    document.getElementById('cdh').textContent=String(h).padStart(2,'0');
+    document.getElementById('cdm').textContent=String(m).padStart(2,'0');
+    document.getElementById('cds').textContent=String(s).padStart(2,'0');
+  }
+  tick(); setInterval(tick,1000);
+}
+
+function saveToCalendar(){
+  var ics=[
+    'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Fadi & Shiema Wedding//AR',
+    'CALSCALE:GREGORIAN','METHOD:PUBLISH','BEGIN:VEVENT',
+    'UID:fadi-shiema-wedding-20260822@invitation',
+    'DTSTART:20260822T170000','DTEND:20260822T220000',
+    'SUMMARY:حفل زفاف فادي وشيماء',
+    'DESCRIPTION:أهلنا وأصدقاؤنا الأعزاء - نتطلع لحضوركم',
+    'LOCATION:Feestzaal The View\, Grote Markt 25\, 9100 Sint-Niklaas',
+    'STATUS:CONFIRMED','END:VEVENT','END:VCALENDAR'
+  ].join('\r\n');
+  var blob=new Blob([ics],{type:'text/calendar;charset=utf-8'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a'); a.href=url; a.download='fadi-shiema-wedding.ics';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(url);},2000);
+}
+</script>
+
+</body>
+</html>
